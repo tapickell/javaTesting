@@ -43,6 +43,11 @@ public class TestTemplate {
 		}
 	}
 	
+	@Test
+	public void testsVariablesGetProcessedJustOnce() throws Exception {
+		
+	}
+	
 	private void assertTemplateEvaluatesTo(String expected) {
 		assertEquals(expected, template.evaluate());
 	} 
