@@ -14,6 +14,9 @@ public class Variable implements Segment {
 	}
 	
 	public String evaluate(Map<String, String> variables) {
+		if (!variables.containsKey(name)) {
+			throw new MissingValueException("No value for ${" + name + "}");
+		}
 		return variables.get(name);
 	}
 }
