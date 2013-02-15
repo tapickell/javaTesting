@@ -26,33 +26,34 @@ public class Template {
 		this.variables.put(name, value);
 	}
 	
-	public String evaluate() {
-		TemplateParse parser = new TemplateParse();
-		List<String> segments = parser.parse(templateText);
-		return concactenate(segments);
-	}
-
-	private String concactenate(List<String> segments) {
-		StringBuilder result = new StringBuilder();
-		for (String segment : segments) {
-			append(segment, result);
-		}
-		return result.toString();
-	}
-	
+	/* Swtiched over to use segment objects instead */
 //	public String evaluate() {
 //		TemplateParse parser = new TemplateParse();
-//		List<Segment> segments = parser.parse(templateText);
+//		List<String> segments = parser.parse(templateText);
 //		return concactenate(segments);
 //	}
 //
-//	private String concactenate(List<Segment> segments) {
+//	private String concactenate(List<String> segments) {
 //		StringBuilder result = new StringBuilder();
-//		for (Segment segment : segments) {
-//			segment.appendTo(result, variables);
+//		for (String segment : segments) {
+//			append(segment, result);
 //		}
 //		return result.toString();
 //	}
+	
+	public String evaluate() {
+		TemplateParse parser = new TemplateParse();
+		List<Segment> segments = parser.parseSegments(templateText);
+		return concactenate(segments);
+	}
+
+	private String concactenate(List<Segment> segments) {
+		StringBuilder result = new StringBuilder();
+		for (Segment segment : segments) {
+			result.append(segment.evaluate(variables));
+		}
+		return result.toString();
+	}
 
 	private void append(String segment, StringBuilder result) {
 		if (isVariable(segment)) {
