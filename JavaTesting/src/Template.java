@@ -39,6 +39,20 @@ public class Template {
 		}
 		return result.toString();
 	}
+	
+//	public String evaluate() {
+//		TemplateParse parser = new TemplateParse();
+//		List<Segment> segments = parser.parse(templateText);
+//		return concactenate(segments);
+//	}
+//
+//	private String concactenate(List<Segment> segments) {
+//		StringBuilder result = new StringBuilder();
+//		for (Segment segment : segments) {
+//			segment.appendTo(result, variables);
+//		}
+//		return result.toString();
+//	}
 
 	private void append(String segment, StringBuilder result) {
 		if (isVariable(segment)) {
@@ -57,7 +71,7 @@ public class Template {
 		result.append(variables.get(var));
 	}
 
-	private boolean isVariable(String segment) {
+	public static boolean isVariable(String segment) {
 		return segment.startsWith("${") && segment.endsWith("}");
 	}
 

@@ -52,6 +52,15 @@ public class TestTemplateParse {
 		assertSegments(segments, "${a}", ":", "${b}", ":", "${c}");
 	}
 
+
+	@Test
+	public void testsParsingTemplateIntoSegmentObjects() throws Exception {
+		List<Segment> segments = parse.parseSegments("a ${b} c ${d}");
+		assertSegments(segments, new PlainText("a "), new Variable("b"),
+								new PlainText(" c "), new Variable("d"));
+	}
+	
+	
 	private void assertSegments(List<? extends Object> actual, Object... expected) {
 		assertEquals("Number of segments", expected.length, actual.size());
 		assertEquals(Arrays.asList(expected), actual);
@@ -60,4 +69,5 @@ public class TestTemplateParse {
 	private List<String> parse(String template) {
 		return new TemplateParse().parse(template);
 	}
+	
 }
